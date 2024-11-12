@@ -17,23 +17,37 @@ namespace CircleSearchAlgorithm
         private int dim;
         private Func<double[], double> fobj;
         private double[][] X_t;
-        private double c;
+        public double c = 0.8;
         private double[] ResultsHistory;
 
-        public CircleSearchAlgorithm() { }
-
-        public CircleSearchAlgorithm(int N, int I, int Dim, Func<double[], double> Fun, double[] Lb, double[] Ub, double c=0.8)
+        public CircleSearchAlgorithm(int N, int I, int Dim, Func<double[], double> Fun, double[] Lb, double[] Ub)
         {
             this.SearchAgentsNo = N;
             this.MaxIter = I;
             this.dim = Dim;
             this.fobj = Fun;
-            this.lb = Lb;
-            this.ub = Ub;
-            this.c = c;
             this.X_t = new double[SearchAgentsNo][];
             this.ResultsHistory = new double[MaxIter];
             this.NumberOfEvaluationFitnessFunction = 0;
+
+            if (Lb.Length == 1)
+            {
+                this.lb = new double[Dim];
+                Array.Fill(this.lb, Lb[0]);
+            }
+            else
+            {
+                this.lb = Lb;
+            }
+            if (Ub.Length == 1)
+            {
+                this.ub = new double[Dim];
+                Array.Fill(this.ub, Ub[0]);
+            }
+            else
+            {
+                this.ub = Ub;
+            }
 
             Random rand = new Random();
             for (int i = 0; i < SearchAgentsNo; i++)
@@ -41,11 +55,9 @@ namespace CircleSearchAlgorithm
                 X_t[i] = new double[dim];
                 for (int j = 0; j < dim; j++)
                 {
-                    X_t[i][j] = Lb[j] + (Ub[j] - Lb[j]) * rand.NextDouble();
+                    X_t[i][j] = lb[j] + (ub[j] - lb[j]) * rand.NextDouble();
                 }
             }
-
-            this.c = c;
         }
 
         public double Solve()
@@ -72,7 +84,7 @@ namespace CircleSearchAlgorithm
             double[] X_c = new double[dim];
             Array.Copy(X_t[indx], X_c, dim);
 
-            int counter = 0; 
+            int counter = 0;
             Random rand = new Random();
 
             while (counter < MaxIter)
