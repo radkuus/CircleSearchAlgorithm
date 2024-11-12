@@ -12,7 +12,7 @@
                 lb[i] = -5.12;
                 ub[i] = 5.12;
             }
-            CircleSearchAlgorithm csa = new CircleSearchAlgorithm(N: 20,I: 80,Dim: dim,Fun: TestFunctions.Rastrigin,Lb: lb, Ub: ub, c: 0.8);
+            CircleSearchAlgorithm csa = new CircleSearchAlgorithm(N: 20,I: 80,Dim: dim,Fun: TestFunctions.Rastrigin,Lb: lb, Ub: ub);
             double Fbest = csa.Solve();
             double[] XBest = csa.XBest;
             Console.WriteLine($"Result: f({string.Join(", ", XBest)}) = {Fbest}");

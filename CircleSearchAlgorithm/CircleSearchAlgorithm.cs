@@ -22,7 +22,7 @@ namespace CircleSearchAlgorithm
 
         public CircleSearchAlgorithm() { }
 
-        public CircleSearchAlgorithm(int N, int I, int Dim, Func<double[], double> Fun, double[] Lb, double[] Ub, double c)
+        public CircleSearchAlgorithm(int N, int I, int Dim, Func<double[], double> Fun, double[] Lb, double[] Ub, double c=0.8)
         {
             this.SearchAgentsNo = N;
             this.MaxIter = I;
